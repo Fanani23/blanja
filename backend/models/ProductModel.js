@@ -17,7 +17,7 @@ const Product = db.define('product', {
     updatedAt: {
         type: DataTypes.DATE,
         field: 'updatedat'
-    },
+    }
 }, {
     freezeTableName: true
 });
