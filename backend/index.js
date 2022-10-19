@@ -11,4 +11,4 @@ app.use(ProductRoute);
 app.use(CategoryRoute);
 app.use(TransactionRoute);
 
-app.listen(3023, ()=> console.log('Server up and running...'));
+app.listen(3023, () => console.log("Server up and running..."));

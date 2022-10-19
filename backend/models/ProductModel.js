@@ -1,29 +1,33 @@
-import {DataTypes} from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
 
-const Product = db.define('product', {
+const Product = db.define(
+  "product",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     product_name: DataTypes.STRING,
     category_name: DataTypes.STRING,
     price: DataTypes.INTEGER,
     createdAt: {
-        type: DataTypes.DATE,
-        field: 'createdat'
+      type: DataTypes.DATE,
+      field: "createdat",
     },
     updatedAt: {
-        type: DataTypes.DATE,
-        field: 'updatedat'
-    }
-}, {
-    freezeTableName: true
-});
+      type: DataTypes.DATE,
+      field: "updatedat",
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
 
 export default Product;
 
 (async () => {
-    await db.sync();
+  await db.sync();
 })();
