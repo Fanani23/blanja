@@ -10,6 +10,7 @@ const Product = db.define(
       primaryKey: true,
     },
     product_name: DataTypes.STRING,
+    stock: DataTypes.INTEGER,
     category_name: DataTypes.STRING,
     price: DataTypes.INTEGER,
     createdAt: {

@@ -9,8 +9,11 @@ const Transaction = db.define(
       autoIncrement: true,
       primaryKey: true,
     },
+    email: DataTypes.STRING,
     product_name: DataTypes.STRING,
-    price: DataTypes.INTEGER,
+    ammount: DataTypes.INTEGER,
+    grand_total: DataTypes.INTEGER,
+    payment_name: DataTypes.STRING,
     createdAt: {
       type: DataTypes.DATE,
       field: "createdat",
