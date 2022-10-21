@@ -33,7 +33,11 @@ export const createTransaction = async (req, res) => {
 
 export const updateTransaction = async (req, res) => {
   try {
-    await Transaction.update(req, res);
+    await Transaction.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
     res.status(200).json({ msg: "Transaction updated" });
   } catch (err) {
     console.log(err.message);
@@ -42,7 +46,11 @@ export const updateTransaction = async (req, res) => {
 
 export const deleteTransaction = async (req, res) => {
   try {
-    await Transaction.destroy(req, res);
+    await Transaction.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
     res.status(200).json({ msg: "Transaction deleted" });
   } catch (err) {
     console.log(err.message);
