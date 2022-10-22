@@ -1,9 +1,42 @@
 import Product from "../models/ProductModel.js";
+import { Op } from "sequelize";
 
 export const getProduct = async (req, res) => {
   try {
-    const response = await Product.findAll();
-    res.status(200).json(response);
+    const { sortBy, limit, search } = req.query;
+
+    let newResponse = [];
+    newResponse = await Product.findAll();
+
+    // limit
+    if (typeof limit !== "undefined") {
+      newResponse = await Product.findAll({
+        limit: limit,
+      });
+    }
+
+    // search
+    if (typeof search !== "undefined") {
+      newResponse = await Product.findAll({
+        where: {
+          product_name: {
+            [Op.iRegexp]: `${search}$`,
+          },
+        },
+      });
+    }
+
+    // sortBy
+    if (typeof sortBy !== "undefined") {
+      if (newResponse.length !== 0) {
+        if (sortBy == "price") {
+          newResponse = newResponse.sort((a, b) => {
+            return b.price - a.price;
+          });
+        }
+      }
+    }
+    res.status(200).json(newResponse);
   } catch (err) {
     console.log(err.message);
   }
