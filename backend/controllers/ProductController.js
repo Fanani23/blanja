@@ -3,7 +3,8 @@ import { Op } from "sequelize";
 
 export const getProduct = async (req, res) => {
   try {
-    const { sortBy, limit, search } = req.query;
+    const { sortBy, limit, search, page, sort } = req.query;
+    const offset = limit * page;
 
     let newResponse = [];
     newResponse = await Product.findAll();
@@ -15,12 +16,20 @@ export const getProduct = async (req, res) => {
       });
     }
 
+    // page
+    if (typeof page !== "undefined") {
+      newResponse = await Product.findAll({
+        limit: limit,
+        offset: offset,
+      });
+    }
+
     // search
     if (typeof search !== "undefined") {
       newResponse = await Product.findAll({
         where: {
           product_name: {
-            [Op.iRegexp]: `${search}$`,
+            [Op.iRegexp]: `${search}`,
           },
         },
       });
@@ -30,9 +39,15 @@ export const getProduct = async (req, res) => {
     if (typeof sortBy !== "undefined") {
       if (newResponse.length !== 0) {
         if (sortBy == "price") {
-          newResponse = newResponse.sort((a, b) => {
-            return b.price - a.price;
-          });
+          if (sort == "desc") {
+            newResponse = newResponse.sort((a, b) => {
+              return b.price - a.price;
+            });
+          } else if (sort == "asc") {
+            newResponse = newResponse.sort((a, b) => {
+              return a.price - b.price;
+            });
+          }
         }
       }
     }
