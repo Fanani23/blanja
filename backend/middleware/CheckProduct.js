@@ -11,7 +11,7 @@ export const checkCreateProduct = (req, res, next) => {
       throw new Error("Product price can't be empty!");
     }
   } catch (err) {
-    return res.send(`${err}`);
+    return res.status(404).send(`${err}`);
   }
   next();
 };
@@ -29,7 +29,7 @@ export const checkUpdateProduct = (req, res, next) => {
       throw new Error("New product price can't be empty!");
     }
   } catch (err) {
-    return res.send(`${err}`);
+    return res.status(404).send(`${err}`);
   }
   next();
 };

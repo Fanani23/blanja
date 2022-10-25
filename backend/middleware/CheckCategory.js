@@ -5,7 +5,7 @@ export const checkCreateCategory = (req, res, next) => {
       throw new Error("Category name can't be empty!");
     }
   } catch (err) {
-    return res.send(`${err}`);
+    return res.status(404).send(`${err}`);
   }
   next();
 };
@@ -19,7 +19,7 @@ export const checkUpdateCategory = (req, res, next) => {
       );
     }
   } catch (err) {
-    return res.send(`${err}`);
+    return res.status(422).send(`${err}`);
   }
   next();
 };
