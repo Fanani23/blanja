@@ -4,7 +4,7 @@ import { Op } from "sequelize";
 export const getProduct = async (req, res) => {
   try {
     const { sortBy, limit, search, page, sort } = req.query;
-    const offset = limit * page;
+    const offset = limit * (page - 1);
 
     let newResponse = [];
     newResponse = await Product.findAll();
